@@ -39,7 +39,7 @@
         "wdio": "wdio run wdio.conf.js"
     },
     "engines": {
-        "node": ">=14",
+        "node": ">=14", 
         "npm": ">=7"
     },
     "engineStrict": true,
