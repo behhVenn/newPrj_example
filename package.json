@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "description": "dri test automation",
     "license": "UNLICENSED",
-    "private": true,
+    "private": true ,
     "scripts": {
         "zx": "node node_modules/zx/zx.mjs",
         "ts-node": "ts-node -r tsconfig-paths/register --",
