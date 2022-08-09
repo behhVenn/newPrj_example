@@ -17,7 +17,9 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './src/ui/atlas/features'
+        // '.\\src\\ui\\atlas\\features\\88\\*.feature'
+        // src\ui\atlas\features\**.*
+        './src/atlas/ui/specs/**/*.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -46,7 +48,7 @@ exports.config = {
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
     capabilities: [{
-    
+
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
@@ -107,14 +109,15 @@ exports.config = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     services: ['chromedriver'],
-    
+
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks.html
     //
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
-    framework: 'cucumber',
+    // framework: 'cucumber',
+    framework: 'mocha',
     //
     // The number of times to retry the entire specfile when it fails as a whole
     // specFileRetries: 1,
@@ -128,12 +131,14 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter.html
-    reporters: ['spec',['allure', {outputDir: 'allure-results'}]],
+    reporters: ['spec'
+    // ,['allure', {outputDir: 'allure-results'}]
+    ],
 
 
     //
     // If you are using Cucumber you need to specify the location of your step definitions.
-    cucumberOpts: {
+    /* cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
         require: ['./src/ui/atlas/features/step-definitions/steps.js'],
         // <boolean> show full backtrace for errors
@@ -160,8 +165,12 @@ exports.config = {
         timeout: 60000,
         // <boolean> Enable this config to treat undefined definitions as warnings.
         ignoreUndefinedDefinitions: false
+    },*/
+    mochaOpts: {
+        ui: 'bdd',
+        timeout: 60000
     },
-    
+
     //
     // =====
     // Hooks
@@ -243,7 +252,7 @@ exports.config = {
      */
     // afterFeature: function (uri, feature, scenarios) {
     // },
-    
+
     /**
      * Runs after a WebdriverIO command gets executed
      * @param {String} commandName hook command name
@@ -285,6 +294,6 @@ exports.config = {
     * @param {String} oldSessionId session ID of the old session
     * @param {String} newSessionId session ID of the new session
     */
-    //onReload: function(oldSessionId, newSessionId) {
-    //}
-}
+    // onReload: function(oldSessionId, newSessionId) {
+    // }
+};
