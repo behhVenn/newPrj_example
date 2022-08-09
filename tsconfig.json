@@ -1,7 +1,7 @@
 {
-    "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",    
-        "types": ["node", "webdriverio/async", "@wdio/cucumber-framework"]
-    }
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "types": ["node", "webdriverio/async", "@wdio/mocha-framework",  "expect-webdriverio"],
+    "target": "esnext"
+  }
 }

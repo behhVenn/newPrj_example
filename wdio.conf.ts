@@ -1,25 +1,59 @@
-exports.config = {
+import type { Options } from '@wdio/types';
+
+export const config: Options.Testrunner = {
     //
     // ====================
     // Runner Configuration
     // ====================
     //
-    // WebdriverIO allows it to run your tests in arbitrary locations (e.g. locally or
-    // on a remote machine).
-    runner: 'local',
+    //
+    // =====================
+    // ts-node Configurations
+    // =====================
+    //
+    // You can write tests using TypeScript to get autocompletion and type safety.
+    // You will need typescript and ts-node installed as devDependencies.
+    // WebdriverIO will automatically detect if these dependencies are installed
+    // and will compile your config and tests for you.
+    // If you need to configure how ts-node runs please use the
+    // environment variables for ts-node or use wdio config's autoCompileOpts section.
+    //
+
+    autoCompileOpts: {
+        autoCompile: true,
+        // see https://github.com/TypeStrong/ts-node#cli-and-programmatic-options
+        // for all available options
+        tsNodeOpts: {
+            transpileOnly: true,
+            project: 'tsconfig.json'
+        }
+        // tsconfig-paths is only used if "tsConfigPathsOpts" are provided, if you
+        // do please make sure "tsconfig-paths" is installed as dependency
+        // tsConfigPathsOpts: {
+        //     baseUrl: './'
+        // }
+    },
     //
     // ==================
     // Specify Test Files
     // ==================
     // Define which test specs should run. The pattern is relative to the directory
-    // from which `wdio` was called. Notice that, if you are calling `wdio` from an
-    // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
-    // directory is where your package.json resides, so `wdio` will be called from there.
+    // from which `wdio` was called.
+    //
+    // The specs are defined as an array of spec files (optionally using wildcards
+    // that will be expanded). The test for each spec file will be run in a separate
+    // worker process. In order to have a group of spec files run in the same worker
+    // process simply enclose them in an array within the specs array.
+    //
+    // If you are calling `wdio` from an NPM script (see https://docs.npmjs.com/cli/run-script),
+    // then the current working directory is where your `package.json` resides, so `wdio`
+    // will be called from there.
     //
     specs: [
         // '.\\src\\ui\\atlas\\features\\88\\*.feature'
         // src\ui\atlas\features\**.*
-        './src/atlas/ui/specs/**/*.js'
+        //'./src/atlas/ui/specs/**/*.js',
+        './src/atlas/ui/specs/**/*.e2e.ts'
     ],
     // Patterns to exclude.
     exclude: [
@@ -45,7 +79,7 @@ exports.config = {
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
-    // https://docs.saucelabs.com/reference/platforms-configurator
+    // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
 
@@ -73,15 +107,15 @@ exports.config = {
     // Set specific log levels per logger
     // loggers:
     // - webdriver, webdriverio
-    // - @wdio/applitools-service, @wdio/browserstack-service, @wdio/devtools-service, @wdio/sauce-service
+    // - @wdio/browserstack-service, @wdio/devtools-service, @wdio/sauce-service
     // - @wdio/mocha-framework, @wdio/jasmine-framework
     // - @wdio/local-runner
     // - @wdio/sumologic-reporter
-    // - @wdio/cli, @wdio/config, @wdio/sync, @wdio/utils
+    // - @wdio/cli, @wdio/config, @wdio/utils
     // Level of logging verbosity: trace | debug | info | warn | error | silent
     // logLevels: {
     //     webdriver: 'info',
-    //     '@wdio/applitools-service': 'info'
+    //     '@wdio/appium-service': 'info'
     // },
     //
     // If you only want to run your tests until a specific amount of tests have failed use
@@ -112,11 +146,10 @@ exports.config = {
 
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
-    // see also: https://webdriver.io/docs/frameworks.html
+    // see also: https://webdriver.io/docs/frameworks
     //
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
-    // framework: 'cucumber',
     framework: 'mocha',
     //
     // The number of times to retry the entire specfile when it fails as a whole
@@ -130,47 +163,18 @@ exports.config = {
     //
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
-    // see also: https://webdriver.io/docs/dot-reporter.html
-    reporters: ['spec'
-    // ,['allure', {outputDir: 'allure-results'}]
-    ],
+    // see also: https://webdriver.io/docs/dot-reporter
+    reporters: ['spec',['allure', {outputDir: 'allure-results'}]],
+
 
 
     //
-    // If you are using Cucumber you need to specify the location of your step definitions.
-    /* cucumberOpts: {
-        // <string[]> (file/dir) require files before executing features
-        require: ['./src/ui/atlas/features/step-definitions/steps.js'],
-        // <boolean> show full backtrace for errors
-        backtrace: false,
-        // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
-        requireModule: [],
-        // <boolean> invoke formatters without executing steps
-        dryRun: false,
-        // <boolean> abort the run on first failure
-        failFast: false,
-        // <string[]> (type[:path]) specify the output format, optionally supply PATH to redirect formatter output (repeatable)
-        format: ['pretty'],
-        // <boolean> hide step definition snippets for pending steps
-        snippets: true,
-        // <boolean> hide source uris
-        source: true,
-        // <string[]> (name) specify the profile to use
-        profile: [],
-        // <boolean> fail if there are any undefined or pending steps
-        strict: false,
-        // <string> (expression) only execute the features or scenarios with tags matching the expression
-        tagExpression: '',
-        // <number> timeout for step definitions
-        timeout: 60000,
-        // <boolean> Enable this config to treat undefined definitions as warnings.
-        ignoreUndefinedDefinitions: false
-    },*/
+    // Options to be passed to Mocha.
+    // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
         timeout: 60000
     },
-
     //
     // =====
     // Hooks
@@ -192,10 +196,19 @@ exports.config = {
      * @param  {String} cid      capability id (e.g 0-0)
      * @param  {[type]} caps     object containing capabilities for session that will be spawn in the worker
      * @param  {[type]} specs    specs to be run in the worker process
-     * @param  {[type]} args     object that will be merged with the main configuration once worker is initialised
+     * @param  {[type]} args     object that will be merged with the main configuration once worker is initialized
      * @param  {[type]} execArgv list of string arguments passed to the worker process
      */
     // onWorkerStart: function (cid, caps, specs, args, execArgv) {
+    // },
+    /**
+     * Gets executed just after a worker process has exited.
+     * @param  {String} cid      capability id (e.g 0-0)
+     * @param  {Number} exitCode 0 - success, 1 - fail
+     * @param  {[type]} specs    specs to be run in the worker process
+     * @param  {Number} retries  number of retries used
+     */
+    // onWorkerEnd: function (cid, exitCode, specs, retries) {
     // },
     /**
      * Gets executed just before initialising the webdriver session and test framework. It allows you
@@ -203,8 +216,9 @@ exports.config = {
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
+     * @param {String} cid worker id (e.g. 0-0)
      */
-    // beforeSession: function (config, capabilities, specs) {
+    // beforeSession: function (config, capabilities, specs, cid) {
     // },
     /**
      * Gets executed before test execution begins. At this point you can access to all global
@@ -223,36 +237,51 @@ exports.config = {
     // beforeCommand: function (commandName, args) {
     // },
     /**
-     * Runs before a Cucumber feature
+     * Hook that gets executed before the suite starts
+     * @param {Object} suite suite details
      */
-    // beforeFeature: function (uri, feature, scenarios) {
+    // beforeSuite: function (suite) {
     // },
     /**
-     * Runs before a Cucumber scenario
+     * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
-    // beforeScenario: function (uri, feature, scenario, sourceLocation, context) {
+    // beforeTest: function (test, context) {
     // },
     /**
-     * Runs before a Cucumber step
+     * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
+     * beforeEach in Mocha)
      */
-    // beforeStep: function ({ uri, feature, step }, context) {
+    // beforeHook: function (test, context) {
     // },
     /**
-     * Runs after a Cucumber step
+     * Hook that gets executed _after_ a hook within the suite starts (e.g. runs after calling
+     * afterEach in Mocha)
      */
-    // afterStep: function ({ uri, feature, step }, context, { error, result, duration, passed, retries }) {
+    // afterHook: function (test, context, { error, result, duration, passed, retries }) {
     // },
     /**
-     * Runs after a Cucumber scenario
+     * Function to be executed after a test (in Mocha/Jasmine only)
+     * @param {Object}  test             test object
+     * @param {Object}  context          scope object the test was executed with
+     * @param {Error}   result.error     error object in case the test fails, otherwise `undefined`
+     * @param {Any}     result.result    return object of test function
+     * @param {Number}  result.duration  duration of test
+     * @param {Boolean} result.passed    true if test has passed, otherwise false
+     * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    // afterScenario: function (uri, feature, scenario, result, sourceLocation, context) {
-    // },
-    /**
-     * Runs after a Cucumber feature
-     */
-    // afterFeature: function (uri, feature, scenarios) {
-    // },
+    afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+        if (!passed) {
+            await browser.takeScreenshot();
+        }
+    },
 
+
+    /**
+     * Hook that gets executed after the suite has ended
+     * @param {Object} suite suite details
+     */
+    // afterSuite: function (suite) {
+    // },
     /**
      * Runs after a WebdriverIO command gets executed
      * @param {String} commandName hook command name
