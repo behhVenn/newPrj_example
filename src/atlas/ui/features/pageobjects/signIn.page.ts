@@ -1,5 +1,5 @@
 import { ChainablePromiseElement } from 'webdriverio';
-import Page from '../../../../../features/pageobjects/page';
+import Page from './page';
 
 
 class SignInPage extends Page {

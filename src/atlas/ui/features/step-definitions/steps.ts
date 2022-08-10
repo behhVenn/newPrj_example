@@ -1,11 +1,8 @@
 import { Given, When, Then } from '@wdio/cucumber-framework';
-import SignInPage from '../../src/atlas/ui/features/pageobjects/signIn.page';
+import SignInPage from '../pageobjects/signIn.page';
 
-import LoginPage from '../pageobjects/login.page';
-import SecurePage from '../pageobjects/secure.page';
 
 const pages = {
-    login: LoginPage,
     signIn: SignInPage
 };
 
