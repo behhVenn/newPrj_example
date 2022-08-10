@@ -4,11 +4,10 @@ import signInPage from '../pageobjects/signIn.page';
 
 let { expect } = require('chai');
 
-const pages = {
-    signIn: signInPage
-};
-
 Given(/^I am on the (\w+) page$/, async (page) => {
+    const pages = {
+        signIn: signInPage
+    };
     await pages[page].open();
 });
 
