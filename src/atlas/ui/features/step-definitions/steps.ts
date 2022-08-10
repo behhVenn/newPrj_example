@@ -11,8 +11,8 @@ Given(/^I am on the (\w+) page$/, async (page) => {
     await pages[page].open();
 });
 
-When(/^I login with (\w+) and (.+)$/, async (username, password) => {
-    await signInPage.signIn(username, password);
+When(/^I login with (.+) and (.+)$/, async (email, password) => {
+    await signInPage.signIn(email, password);
 });
 
 Then(/^I should see a flash message saying (.*)$/, async (message) => {

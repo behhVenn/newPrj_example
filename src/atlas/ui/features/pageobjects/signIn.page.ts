@@ -20,8 +20,8 @@ class SignInPage extends Page {
         return $(        'button[data-testid=create-account-flow-sign-in-btn-submit]');
     }
 
-    public async signIn(username: string, password: string) {
-        await this.emailInput.setValue(username);
+    public async signIn(email: string, password: string) {
+        await this.emailInput.setValue(email);
         await this.password.setValue(password);
         await this.signInButton.click();
     }
