@@ -16,14 +16,14 @@ class SignInPage extends Page {
     private get password() {
         return $('#signin-password');
     }
-    private get sugnInButton(){
+    private get signInButton(){
         return $(        'button[data-testid=create-account-flow-sign-in-btn-submit]');
     }
 
-    public async login(username: string, password: string) {
+    public async signIn(username: string, password: string) {
         await this.emailInput.setValue(username);
         await this.password.setValue(password);
-        await this.sugnInButton.click();
+        await this.signInButton.click();
     }
 
     public async open() {

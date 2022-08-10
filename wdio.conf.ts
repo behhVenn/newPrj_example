@@ -53,7 +53,7 @@ export const config: Options.Testrunner = {
         // '.\\src\\ui\\atlas\\features\\88\\*.feature'
         // src\ui\atlas\features\**.*
         //'./src/atlas/ui/specs/**/*.js',
-        './src/atlas/ui/specs/**/*.e2e.ts'
+        './src/atlas/ui/**/*.feature'
     ],
     // Patterns to exclude.
     exclude: [
@@ -150,7 +150,7 @@ export const config: Options.Testrunner = {
     //
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
-    framework: 'mocha',
+    framework: 'cucumber',
     //
     // The number of times to retry the entire specfile when it fails as a whole
     // specFileRetries: 1,
