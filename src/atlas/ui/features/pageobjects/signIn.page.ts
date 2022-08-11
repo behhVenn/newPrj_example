@@ -17,7 +17,7 @@ class SignInPage extends Page {
         return $('#signin-password');
     }
     private get signInButton(){
-        return $(        'button[data-testid=create-account-flow-sign-in-btn-submit]');
+        return $('button[data-testid=create-account-flow-sign-in-btn-submit]');
     }
 
     public async signIn(email: string, password: string) {
