@@ -1,0 +1,11 @@
+{
+    "cucumberautocomplete.steps": [
+        "src/atlas/ui/features/step-definitions/*.ts"
+    ],
+    "cucumberautocomplete.syncfeatures": "src/atlas/ui/features/*.feature",
+    "editor.quickSuggestions": {
+    "comments": false,
+    "strings": true,
+    "other": true
+    }
+    }
