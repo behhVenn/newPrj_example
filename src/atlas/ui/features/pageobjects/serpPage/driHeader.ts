@@ -1,6 +1,5 @@
 class DRIHeder {
-    // TODO: redesign to business action instead of controls direct actions
-    public get controls(){
+    get controls(){
         return {
             'Search button':  $('#global-header-desktop-search-icon')
         };
